@@ -1,0 +1,18 @@
+void main()
+{
+const int a=7,b=3;
+print(a+b);
+print(a-b);
+print(a*b);
+print(a/b);
+print(a%b);
+}
+
+//OUTPUT
+/*
+10
+4
+21
+2.3333333333333335
+1
+*/
