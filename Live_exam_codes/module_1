@@ -1,0 +1,23 @@
+/*inputs
+Name and Gender datatype is String.
+PersonID, Age and Salary are integer.
+
+Outputs
+Printing the salary of the person.
+ */
+
+void main()
+{
+  /*Initializing a Map and defining the datatype of value to dynamic
+  because the inputs could be in different datatype.
+  */
+  Map<String,dynamic> person= {"PersonID": 791,
+    "Name": "Ayman Ahmad",
+    "Age": 20,
+    "Salary": 100000,
+    "Gender": "Male"
+  };
+
+  //Showing output of the salary value from the Map
+  print("Salary: ${person['Salary']} BDT");
+}
