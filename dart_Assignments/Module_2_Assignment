@@ -1,13 +1,8 @@
 void main() {
   List<int> grades = [85, 92, 78, 65, 88, 72];
-  int sum = 0;
 
-  //calculating total marks by using for loop...adding the list index values with the sum in every iteration of the loop
-  for (int i = 0; i < grades.length; i++) {
-    sum += grades[i];
-  }
+  double average = getAverageGrade(grades: grades);
 
-  double average = sum/grades.length;
   print("Student's average grade: $average");
 
   //using round() to round the average to the nearest integer.
@@ -22,9 +17,20 @@ void main() {
     print("Failed");
   }
 }
-/*
-output
-Student's average grade: 80.0
-Rounded average: 80
-Passed
-*/
+
+/*declaring getAverageGrade() function to get the average.
+Parameters:
+    List of grades
+    
+return type double:
+    average of total marks
+ */
+double getAverageGrade({required List<int> grades}){
+  int sum =0;
+
+  for(int grades in grades){
+    sum+=grades;
+  }
+  return sum/grades.length;
+
+}
