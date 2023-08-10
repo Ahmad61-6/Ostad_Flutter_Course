@@ -1,0 +1,30 @@
+void main() {
+  List<int> grades = [85, 92, 78, 65, 88, 72];
+  int sum = 0;
+
+  //calculating total marks by using for loop...adding the list index values with the sum in every iteration of the loop
+  for (int i = 0; i < grades.length; i++) {
+    sum += grades[i];
+  }
+
+  double average = sum/grades.length;
+  print("Student's average grade: $average");
+
+  //using round() to round the average to the nearest integer.
+  int roundAverage = average.round();
+  print("Rounded average: $roundAverage");
+
+  //Using if else to check weather the the student have passed or failed.
+  if(roundAverage>=70) {
+    print("Passed");
+  }
+  else {
+    print("Failed");
+  }
+}
+/*
+output
+Student's average grade: 80.0
+Rounded average: 80
+Passed
+*/
