@@ -1,0 +1,19 @@
+void main()
+{
+  List <double> prices =[12.99, 8.75, 21.50, 5.00];
+
+  double billWithoutTax = calculateBill(prices: prices);
+
+  double billWithTax = billWithoutTax +(billWithoutTax * 0.08);
+
+  print("Total Cost: \$${billWithTax.toStringAsFixed(2)}");
+
+}
+
+double calculateBill({required List<double> prices}){
+  double total=0.0;
+  for(double i in prices){
+    total+=i;
+  }
+  return total;
+}
