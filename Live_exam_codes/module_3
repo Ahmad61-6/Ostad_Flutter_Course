@@ -1,0 +1,27 @@
+class Person{
+  String name;
+  int age;
+  String address;
+
+  Person(this.name, this.age, this.address);
+
+  void sayHello(){
+    print("Hello, my name is $name");
+  }
+
+  int getAgeInMonths() {
+    return age * 12;
+  }
+
+}
+
+void main()
+{
+    String name = "Ayman"; // assign your name
+    int age = 20; //assign your age
+    String address = "Mipur, Dhaka"; //assign any address
+   Person person = new Person(name, age, address);
+    person.sayHello();
+    int ageInMonths = person.getAgeInMonths();
+    print("Age in months: $ageInMonths");
+}
