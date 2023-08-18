@@ -73,16 +73,16 @@ void main()
   //instance for car 1
 Car toyota = Car(brand: "Toyota", model: "Camry", year: 2020);
 toyota.drive(1000);//miles driven by toyota
-print("Car ${Car.numberOfCars}: ${toyota.getBrand()} ${toyota.getModel()} ${toyota.getYear()} Miles: ${toyota.getMilesDriven().round()} Age: ${toyota.getAge()}\n");
+print("Car ${Car.numberOfCars}: ${toyota.getBrand()} ${toyota.getModel()} ${toyota.getYear()} Miles: ${toyota.getMilesDriven().round()} Age: ${toyota.getAge()}");
 
 //instance for car 2
   Car Honda = Car(brand: "Honda", model: "Civic", year: 2018);
   Honda.drive(8000);//miles driven by honda
-  print("Car ${Car.numberOfCars}: ${Honda.getBrand()} ${Honda.getModel()} ${Honda.getYear()} Miles: ${Honda.getMilesDriven().round()} Age: ${Honda.getAge()}\n");
+  print("Car ${Car.numberOfCars}: ${Honda.getBrand()} ${Honda.getModel()} ${Honda.getYear()} Miles: ${Honda.getMilesDriven().round()} Age: ${Honda.getAge()}");
 
   //instance for car 3
   Car Ford = Car(brand: "Ford", model: "F-150", year: 2015);
   Ford.drive(15000);//miles driven by ford
-  print("Car ${Car.numberOfCars}:${Ford.getBrand()}${Ford.getModel()}${Ford.getYear()}Miles:${Ford.getMilesDriven().round()}Age:");
+  print("Car ${Car.numberOfCars}: ${Ford.getBrand()} ${Ford.getModel()} ${Ford.getYear()} Miles: ${Ford.getMilesDriven().round()} Age: ${Ford.getAge()}");
   print("${Ford.getAge()} Total number of cars created: ${Car.numberOfCars}");
 }
