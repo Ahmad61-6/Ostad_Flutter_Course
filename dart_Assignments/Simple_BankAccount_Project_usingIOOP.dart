@@ -108,8 +108,9 @@ void main() {
   CurrentAccount current = CurrentAccount(overdraftLimit: 500, accountNo: 12345);
   print('\nCurrent Account Balance: ${current.getBalance} tk. , OverdraftLimit : ${current.overdraftLimit} tk.');
   current.deposit(1500);
-  print("CurrentAccount Balance: ${current.getBalance}");
+  print("CurrentAccount Balance: ${current.getBalance}tk.");
   current.withdraw(2000);
-  print("Current Balance after withdrawal: ${current.getBalance}");
+  print("Current Balance after withdrawal: ${current.getBalance}tk.");
 }
+
 
