@@ -31,7 +31,7 @@ In main()
 
 // Define the abstract Account class
 abstract class Account {
-  int? accountNo;
+  late int accountNo;
   double _accountBalance = 0.0;
 
   // Use a getter for balance instead of a private variable
@@ -39,13 +39,19 @@ abstract class Account {
 
   // Use a protected method to set the balance
   void _setBalance(double amount) {
-    _accountBalance = amount;
+    if(amount<0){
+      _accountBalance =0.0;
+    }
+    else {
+      _accountBalance = amount;
+    }
   }
 
   // Define the deposit method
   void deposit(double amount) {
+    print("Depositing Amount : $amount tk");
     _setBalance(getBalance + amount);
-    print("Deposit Successful");
+    print("Deposit Successful\nAfter Deposit");
   }
 
   // Define the abstract withdraw method
@@ -54,21 +60,35 @@ abstract class Account {
 
 // Define the SavingsAccount class
 class SavingsAccount extends Account {
-  double interestRate = 0.05;
+  double interestRate ;
 
+  SavingsAccount({required accountNo, required this.interestRate});
   @override
   void withdraw(double amount) {
-    _setBalance((getBalance - amount) * (1 + interestRate));
-    print("Withdrawal Successful");
+    if(amount>getBalance){
+      print("Insufficient Balance");
+    }
+    else {
+      print("Withdrawing amount : $amount tk");
+      _setBalance(getBalance - amount);
+      print("Withdrawal Successful");
+      print("Applying interest rate $interestRate% = ${getBalance * (interestRate / 100)} to remaining balance : $getBalance tk");
+      _setBalance(getBalance+getBalance * (interestRate / 100));
+      print("Saving account current balance: $getBalance tk");
+
+    }
   }
 }
 
 // Define the CurrentAccount class
 class CurrentAccount extends Account {
-  double overdraftLimit = 1000.0; // Set an example overdraft limit
+  double overdraftLimit;
+
+  CurrentAccount({required accountNo,required this.overdraftLimit}) ;
 
   @override
   void withdraw(double amount) {
+    print("Withdrawing amount : $amount tk");
     if (amount <= getBalance + overdraftLimit) {
       _setBalance(getBalance - amount);
       print('Withdrawal Successful');
@@ -79,15 +99,17 @@ class CurrentAccount extends Account {
 }
 
 void main() {
-  SavingsAccount savings = SavingsAccount();
+  SavingsAccount savings = SavingsAccount(interestRate: 5, accountNo: 1234);
+  print('Savings Account Balance: ${savings.getBalance} tk.');
   savings.deposit(1000);
-  print("Savings Balance: ${savings.getBalance}");
+  print("Savings Account Balance: ${savings.getBalance} tk");
   savings.withdraw(200);
-  print("Savings Balance after withdrawal: ${savings.getBalance}");
 
-  CurrentAccount current = CurrentAccount();
+  CurrentAccount current = CurrentAccount(overdraftLimit: 500, accountNo: 12345);
+  print('\nCurrent Account Balance: ${current.getBalance} tk. , OverdraftLimit : ${current.overdraftLimit} tk.');
   current.deposit(1500);
-  print("Current Balance: ${current.getBalance}");
+  print("CurrentAccount Balance: ${current.getBalance}");
   current.withdraw(2000);
   print("Current Balance after withdrawal: ${current.getBalance}");
 }
+
