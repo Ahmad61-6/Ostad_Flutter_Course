@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '';
 
 void main()
 {
@@ -27,7 +26,7 @@ class Profile extends StatelessWidget{
       backgroundColor: Colors.white,
       appBar: AppBar(backgroundColor: Colors.blue,
       centerTitle: true,
-
+        toolbarHeight: 80,
         title: Text('Profile',
           style: TextStyle(
             color: Colors.white,
@@ -39,8 +38,9 @@ class Profile extends StatelessWidget{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(''),
-            Icon((Icons.person_outline),size: 50,color: Colors.green,),
+            Image.network('https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-and-shapes-3/177800/129-512.png'
+            ,scale: 9,),
+            // Icon((Icons.person_outline),size: 50,color: Colors.green,),
             Text('Jhon Doe',style:
               TextStyle(
                 fontSize: 30,
@@ -48,7 +48,7 @@ class Profile extends StatelessWidget{
               )
               ,),
             Text('Flutter Batch 4', style: TextStyle(
-              fontSize: 24,
+              fontSize: 22,
               color: Colors.blue,
             ),
             )
