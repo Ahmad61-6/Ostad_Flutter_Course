@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ostadapp/pages/home_page.dart';
 import '';
 
 void main()
