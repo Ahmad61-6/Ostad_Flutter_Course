@@ -15,82 +15,44 @@ class MyApp extends StatelessWidget{
     // TODO: implement build
     return MaterialApp(
       debugShowCheckedModeBanner: true,
-      home: HomePage(),
+      home: Profile(),
     );
   }
 
 }
-class HomePage extends StatelessWidget{
+class Profile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.green,
-      toolbarHeight: 100,
-      elevation: 70.0,
+      appBar: AppBar(backgroundColor: Colors.blue,
       centerTitle: true,
-        leading: Icon(
-          Icons.add_business_rounded, color: Colors.white,
-        ),
-        title: Text('Home',
+
+        title: Text('Profile',
           style: TextStyle(
             color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
+            fontSize: 20,
           ),
         ),
-        actions: <Widget>[
-          Icon(Icons.search),
-        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('This is mod 5 Assignment',style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
+            Image.network(''),
+            Icon((Icons.person_outline),size: 50,color: Colors.green,),
+            Text('Jhon Doe',style:
+              TextStyle(
+                fontSize: 30,
+                color: Colors.green
+              )
+              ,),
+            Text('Flutter Batch 4', style: TextStyle(
+              fontSize: 24,
+              color: Colors.blue,
             ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-          RichText(text: TextSpan(
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.amber,
-            ),
-            children: [
-              TextSpan(
-                text: 'My ',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.deepOrange
-                )
-              ),
-              TextSpan(
-                text: 'phone',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.lightBlue
-                ),
-              ),
-
-              TextSpan(
-                text: ' name',
-                style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.purple
-                ),
-              ),
-              TextSpan(
-                text: ' Your phone name',
-              ),
-            ]
-          )
-          )
-              ],
             )
+
           ],
         ),
       ),
