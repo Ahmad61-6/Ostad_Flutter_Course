@@ -1,16 +1,7 @@
-# ostadapp
+![image](https://github.com/Ahmad61-6/Ostad_Flutter_Course/assets/130034466/f424aa65-06c8-4c45-a977-f42e5efc3ffd)
+![image](https://github.com/Ahmad61-6/Ostad_Flutter_Course/assets/130034466/05144c2f-df2a-44e8-a2d0-15628b4b637e)
+![image](https://github.com/Ahmad61-6/Ostad_Flutter_Course/assets/130034466/f4065423-8ee6-4094-87a2-c8a3313f10b3)
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
