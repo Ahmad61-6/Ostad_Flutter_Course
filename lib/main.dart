@@ -29,7 +29,7 @@ class PhotoGallery extends StatelessWidget {
     image.add("https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
     image.add("https://images.pexels.com/photos/13043589/pexels-photo-13043589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
     image.add("https://sky.shorthandstories.com/messi-perfect-ending/assets/ckU1G7EE5Y/ap22352771589324-3677x2451.jpg");
-    image.add("https://static.toiimg.com/thumb/imgsize-23456,msid-96325736,width-600,resizemode-4/96325736.jpg");
+    image.add("https://fotos.perfil.com/2022/12/18/cropped/696/696/center/lionel-messi-argentina-world-cup-win-1475660.jpg");
 
     return Scaffold(
       appBar: AppBar(
