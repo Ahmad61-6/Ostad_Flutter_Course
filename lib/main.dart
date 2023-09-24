@@ -12,55 +12,88 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: Homepage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-  
-  MySnackBar(message, context){
-    return ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message))
-    );
-  }
+class Homepage extends StatefulWidget {
+  const Homepage({super.key});
+
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  int counter =0;
 
   MyAlertDialog(context){
     return showDialog(context: context,
         builder: (BuildContext context){
-      return Expanded(
-          child: AlertDialog(
-            title: Text("Alert !"),
-            content: Text("Do you want to delete?"),
-            actions: [
-              TextButton(onPressed: (){
-                MySnackBar('Delete successful!', context);
-                Navigator.of(context).pop();
-              },
-                  child: Text("Yes")),
-              TextButton(onPressed: (){
-                Navigator.of(context).pop();
-              }, child: Text('No'))
-            ],
-          )
-      );
+          return Expanded(
+              child: AlertDialog(
+                title: Text("Button Pressed 5 times",style: TextStyle(
+                  fontSize: 25,
+                ),
+                ),
+                actions: [
+                  TextButton(onPressed: (){
+                    Navigator.of(context).pop();
+                  }, child: Text('Close'))
+                ],
+              )
+          );
         });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("MyApp"),
-        centerTitle: true,
+        title: Text('Counter App'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            MyAlertDialog(context);
-          },
-          child: Text('Click Me'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Count:",style: TextStyle(
+              fontSize: 22,
+            ),
+            ),
+            Text(
+              counter.toString(),
+              style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: (){
+                  if(counter<5){
+                    counter +=1;
+                    setState(() {});
+                  }
+                  else{
+                    MyAlertDialog(context);
+                    counter = 0;
+                    setState(() {
+                    });
+                  }
+
+                }, child: Icon(Icons.add)),
+                SizedBox(
+                  width: 15,
+                ),
+                ElevatedButton(onPressed: (){
+                  counter=0;
+                  setState(() {
+                  });
+                }, child: Icon(Icons.remove)),
+              ],
+            ),
+
+          ],
         ),
       ),
     );
