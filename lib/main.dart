@@ -113,6 +113,7 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
+        centerTitle: true,
       ),
       body: Column(
         children: [
