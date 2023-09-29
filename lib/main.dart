@@ -1,152 +1,147 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ProductList(),
+    return ResponsiveApp(
+      builder: (context) {
+        return MaterialApp(
+          title: 'Live Test 08',
+          home: HomePage(),
+        );
+      },
     );
   }
 }
 
-class ProductList extends StatefulWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
-  State<ProductList> createState() => _ProductListState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _ProductListState extends State<ProductList> {
-  _CongratulationAlertDialog(Products product) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Congratulations !"),
-            content: Text(
-                "You have brought ${product.quantity} ${product.name}!!"),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
+class _HomePageState extends State<HomePage> {
+  var myItems = [
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+    {
+      "img": "https://via.placeholder.com/150",
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title:  Text("News Feed"),
+      ),
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          final isLandscape = orientation == Orientation.landscape;
+          final crossAxisCount = isLandscape ? 2 : 1;
+
+          return isLandscape
+              ? Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: GridView.builder(
+                        gridDelegate:
+                        SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: 0.8,
+                          childAspectRatio: isLandscape ? 1.1 : .8,
+                        ),
+                        itemCount: myItems.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            child: Container(
+                              margin: const EdgeInsets.all(5),
+                              width: double.infinity,
+                              height: isLandscape ? 100 : 150,
+                              child: Image.network(
+                                myItems[index]['img']!,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
+              : Column(
+            children: [
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 0.8,
+                    childAspectRatio: isLandscape ? 0.9 : 1.1,
+                  ),
+                  itemCount: myItems.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        width: double.infinity,
+                        height: isLandscape ? 100 : 150,
+                        child: Image.network(
+                          myItems[index]['img']!,
+                        ),
+                      ),
+                    );
                   },
-                  child: Text("OK")),
+                ),
+              ),
             ],
           );
-        });
-  }
-
-  List<Products> products = List.generate(
-      20, (index) => Products('Product ${index + 1}', 20.00));
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Product List'),
-        centerTitle: true,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => CartPage(products: products)));
-        },
-        child: Icon(Icons.shopping_cart),
-      ),
-      body: ListView.separated(
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          Products product = products[index];
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListTile(
-              title: Text(product.name),
-              subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Counter: ${product.quantity}',
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          product.quantity += 1;
-                          if (product.quantity >= 5) {
-                            _CongratulationAlertDialog(product);
-                          }
-                        });
-                      },
-                      child: Text('Buy now'))
-                ],
-              ),
-            ),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Divider();
         },
       ),
     );
   }
-}
-
-class CartPage extends StatelessWidget {
-  final List<Products> products;
-
-  CartPage({required this.products});
-
-  @override
-  Widget build(BuildContext context) {
-    int totalCount = products.fold(0, (sum, item) => sum + item.quantity);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Cart'),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Total products bought: $totalCount',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                if (products[index].quantity == 0) return SizedBox.shrink();
-
-                return ListTile(
-                  title: Text(products[index].name),
-                  trailing: Text('x${products[index].quantity}'),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Products {
-  String name;
-  double price;
-  int quantity = 0;
-
-  Products(this.name, this.price);
 }
