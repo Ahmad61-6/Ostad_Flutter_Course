@@ -1,192 +1,307 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: false,
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatefulWidget {
+class Product {
+  String image;
+  String name;
+  int unitPrice;
+  String color;
+  String size;
+  int quantity;
+
+  Product(this.image, this.name, this.unitPrice, this.color, this.size,
+      this.quantity);
+}
+
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
   Widget build(BuildContext context) {
-    return ResponsiveApp(
-      builder: (context) {
-        return MaterialApp(
-          title: 'Assignment 08',
-          home: HomePage(),
-        );
-      },
+    return MaterialApp(
+      title: 'Assignment 09',
+      debugShowCheckedModeBanner: false,
+      home: MyHomePage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+class MyHomePage extends StatefulWidget {
   @override
-  State<HomePage> createState() => _HomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  var myItems = [
-    {
-      "img":
-      "https://media.gettyimages.com/id/1451936359/photo/lionel-messi-of-argentina-lifts-the-fifa-world-cup-qatar-2022-winners-trophy-during-the-fifa.jpg?s=612x612&w=0&k=20&c=B0UM5Hko74IGwcC2qLq5dcsZhwfgGOVaWVJyfRLAOLA=",
-    },
-    {
-      "img":
-      "https://media.gettyimages.com/id/1451936359/photo/lionel-messi-of-argentina-lifts-the-fifa-world-cup-qatar-2022-winners-trophy-during-the-fifa.jpg?s=612x612&w=0&k=20&c=B0UM5Hko74IGwcC2qLq5dcsZhwfgGOVaWVJyfRLAOLA=",
-    },
-    {
-      "img":
-      "https://media.gettyimages.com/id/1451936359/photo/lionel-messi-of-argentina-lifts-the-fifa-world-cup-qatar-2022-winners-trophy-during-the-fifa.jpg?s=612x612&w=0&k=20&c=B0UM5Hko74IGwcC2qLq5dcsZhwfgGOVaWVJyfRLAOLA=",
-    },
-    {
-      "img":
-      "https://media.gettyimages.com/id/1451936359/photo/lionel-messi-of-argentina-lifts-the-fifa-world-cup-qatar-2022-winners-trophy-during-the-fifa.jpg?s=612x612&w=0&k=20&c=B0UM5Hko74IGwcC2qLq5dcsZhwfgGOVaWVJyfRLAOLA=",
-    },
-    {
-      "img":
-      "https://media.gettyimages.com/id/1451936359/photo/lionel-messi-of-argentina-lifts-the-fifa-world-cup-qatar-2022-winners-trophy-during-the-fifa.jpg?s=612x612&w=0&k=20&c=B0UM5Hko74IGwcC2qLq5dcsZhwfgGOVaWVJyfRLAOLA=",
-    },
-    {
-      "img":
-      "https://media.gettyimages.com/id/1451936359/photo/lionel-messi-of-argentina-lifts-the-fifa-world-cup-qatar-2022-winners-trophy-during-the-fifa.jpg?s=612x612&w=0&k=20&c=B0UM5Hko74IGwcC2qLq5dcsZhwfgGOVaWVJyfRLAOLA=",
-    },
+class _MyHomePageState extends State<MyHomePage> {
+  List<Product> products = [
+    Product('images/product1.png', 'Pullover', 51, 'Black', 'L', 1),
+    Product('images/product2.png', 'T-Shirt', 30, 'Gray', 'L', 1),
+    Product('images/product3.png', 'Sport Dress', 43, 'Black', 'M', 1),
   ];
+
+  void increaseItemCount(int index) {
+    setState(() {
+      products[index].quantity++;
+    });
+  }
+
+  void decreaseItemCount(int index) {
+    if (products[index].quantity > 0) {
+      setState(() {
+        products[index].quantity--;
+      });
+    }
+  }
+
+  int calculateTotalAmount() {
+    int total = 0;
+    for (var product in products) {
+      total += product.quantity * product.unitPrice;
+    }
+    return total;
+  }
+
+  MySnackBar(message, context) {
+    return ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
-        title:  Text("Profile"),
+        elevation: 0,
+        backgroundColor: const Color(0xFFF9F9F9),
+        iconTheme: const IconThemeData(color: Colors.black),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
       ),
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          final isLandscape = orientation == Orientation.landscape;
-          final crossAxisCount = isLandscape ? 3 : 3;
-
-          return isLandscape
-              ? Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: ClipOval(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width,
-                    child: Image.network(
-                        'https://media.gettyimages.com/id/1450131991/photo/lionel-messi-of-argentina-kisses-the-fifa-world-cup-qatar-2022-winners-trophy-after-the-fifa.jpg?s=612x612&w=0&k=20&c=wliZkz5XPFqvJqs5rqt9s2sNzsfRDxF-fHHFDyOQ-LE=',
-                        fit: BoxFit.cover),
-                  ),
-                ),
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(14, 18, 0, 24),
+            child: Text(
+              "My Bag",
+              style: TextStyle(
+                fontSize: screenWidth > 600
+                    ? 48
+                    : 34, // Adjust font size for larger screens
+                fontWeight: FontWeight.w700,
               ),
-              Expanded(
-                flex: 2,
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: products.length,
+            itemBuilder: (context, index) {
+              return Card(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(
-                        "Messi (G.O.A.T)",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
-                      child: Text(
-                          'Lionel Messi has conquered his final peak. Lionel Messi has shaken hands with paradise. The little boy from Rosario, Santa Fe, has just pitched up in heaven.'),
-                    ),
-                    Expanded(
-                      child: GridView.builder(
-                        gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: crossAxisCount,
-                          crossAxisSpacing: 0.8,
-                          childAspectRatio: isLandscape ? 1.1 : .8,
-                        ),
-                        itemCount: myItems.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            child: Container(
-                              margin: const EdgeInsets.all(5),
-                              width: double.infinity,
-                              height: isLandscape ? 100 : 150,
-                              child: Image.network(
-                                myItems[index]['img']!,
+                    Row(
+                      children: [
+                        Image.asset(products[index].image, fit: BoxFit.cover),
+                        Expanded(
+                          child: ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(products[index].name),
+                                const Icon(Icons.more_vert),
+                              ],
+                            ),
+                            subtitle: Align(
+                              alignment: Alignment.topLeft,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        const TextSpan(
+                                          text: 'Color: ',
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: '${products[index].color}',
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        const TextSpan(
+                                          text: '  Size: ',
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: '${products[index].size}',
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0xFF9B9B9B),
+                                              offset: Offset(0, 1),
+                                              blurRadius: 2,
+                                              spreadRadius: 0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Material(
+                                          color: Colors.white,
+                                          shape: const CircleBorder(),
+                                          child: InkWell(
+                                            borderRadius:
+                                            BorderRadius.circular(20),
+                                            onTap: () =>
+                                                decreaseItemCount(index),
+                                            child: const Center(
+                                              child: Icon(
+                                                Icons.remove,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Text(
+                                          '${products[index].quantity.toString()}',
+                                          style: const TextStyle(
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0xFF9B9B9B),
+                                              offset: Offset(0, 1),
+                                              blurRadius: 2,
+                                              spreadRadius: 0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Material(
+                                          color: Colors.white,
+                                          shape: const CircleBorder(),
+                                          child: InkWell(
+                                            borderRadius:
+                                            BorderRadius.circular(20),
+                                            onTap: () =>
+                                                increaseItemCount(index),
+                                            child: const Center(
+                                              child: Icon(
+                                                Icons.add,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        '${products[index].unitPrice * products[index].quantity}\$',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ),
-            ],
-          )
-              : Column(
-            children: [
-              ClipOval(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.width,
-                  child: Image.network(
-                      'https://media.gettyimages.com/id/1450131991/photo/lionel-messi-of-argentina-kisses-the-fifa-world-cup-qatar-2022-winners-trophy-after-the-fifa.jpg?s=612x612&w=0&k=20&c=wliZkz5XPFqvJqs5rqt9s2sNzsfRDxF-fHHFDyOQ-LE=',
-                      fit: BoxFit.cover),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  "Messi (The G.O.A.T)",
+              );
+            },
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        height: 105,
+        elevation: 0,
+        child: ListView(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Total Amount:',
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                ),
+                Text(
+                  '${calculateTotalAmount().toStringAsFixed(0)}\$',
+                  style: const TextStyle(
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
-                child: Text(
-                    'Lionel Messi has conquered his final peak. Lionel Messi has shaken hands with paradise. The little boy from Rosario, Santa Fe, has just pitched up in heaven.'),
-              ),
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: 0.8,
-                    childAspectRatio: isLandscape ? 0.9 : 1.1,
-                  ),
-                  itemCount: myItems.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      child: Container(
-                        margin: const EdgeInsets.all(5),
-                        width: double.infinity,
-                        height: isLandscape ? 100 : 150,
-                        child: Image.network(
-                          myItems[index]['img']!,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    );
-                  },
+              ],
+            ),
+            ElevatedButton(
+              onPressed: () {
+                MySnackBar(
+                    "Congratulations, Your order has been placed Successfully!!",
+                    context);
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(300, 28),
+                backgroundColor: const Color(0xffdb3022),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
                 ),
               ),
-            ],
-          );
-        },
+              child: const Text(
+                "CHECK OUT",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
