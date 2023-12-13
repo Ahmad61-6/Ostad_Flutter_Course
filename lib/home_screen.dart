@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:sizer/sizer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,48 +11,18 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Home'),
         ),
-      body: Center(
-        child:
-        Stack(
-          children: [
-            Container(
-              height: 100,
-              width: 100,
-              color: Colors.pink,
-            ),
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.green,
-                ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: Container(
-                height: 20,
-                width: 20,
-                color: Colors.purple,
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 20,
-              child: Container(
-                height: 15,
-                width: 15,
-                color: Colors.black,
-              ),
-            ),
+     body: ResponsiveBuilder
+       (builder: (context, sizingInformation) {
+         return Center(
+           child: Text(sizingInformation.deviceScreenType.toString(),
+             style: TextStyle(
+               fontSize: 15.sp,
+             ),
+           ),
+         );
+     },
 
-
-          ],
-        ),
-      ),
+     ),
     );
   }
 }
