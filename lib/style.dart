@@ -5,6 +5,6 @@ InputDecoration inputDecoration(String hint){
     contentPadding: EdgeInsets.fromLTRB(20, 10, 10, 20),
     enabledBorder: OutlineInputBorder(),
     focusedBorder: OutlineInputBorder(),
-    hintText: hint,
+    labelText: hint,
   );
 }

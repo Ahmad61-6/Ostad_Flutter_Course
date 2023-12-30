@@ -16,6 +16,7 @@ class _AddNewTodoState extends State<AddNewTodo> {
   final TextEditingController todoTEController = TextEditingController();
   final TextEditingController todoTEController2 = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,12 +33,13 @@ class _AddNewTodoState extends State<AddNewTodo> {
                 return null;
               }
             },
+            onEditingComplete: () => FocusScope.of(context).nextFocus(),
             decoration: inputDecoration("Add Title"),
           ),
         ),
         SizedBox(height: 5,),
         Form(
-          key: _formKey,
+          key: _formKey2,
           child: TextFormField(
             controller: todoTEController2,
             validator: (String? value){
@@ -58,7 +60,7 @@ class _AddNewTodoState extends State<AddNewTodo> {
               textStyle: TextStyle(fontWeight: FontWeight.bold)
           ),
           onPressed: (){
-            if(_formKey.currentState!.validate()){
+            if(_formKey.currentState!.validate()&&_formKey2.currentState!.validate()){
               Todo todo = Todo(title: todoTEController.text.trim(),
                   subTitle: todoTEController2.text.trim()
               );
