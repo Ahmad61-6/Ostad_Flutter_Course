@@ -13,7 +13,6 @@ class ToDoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Module 10 Assignment',
       home: HomePage(),
     );
   }
