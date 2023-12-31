@@ -10,14 +10,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
 
-  final List<bool> _selected = List.generate(20, (i) => false);
-  int count=0;
+  final List<bool> _selected = List.generate(5, (i) => false);
+
   @override
   Widget build(BuildContext context) {
-    countItem(){
-      setState(() {
-        count++;
-      });
+    int getSelectedItemCount() {
+      return _selected.where((isSelected) => isSelected).length;
     }
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Number of selected items : $count"),
+                  Text("Number of selected items : ${getSelectedItemCount()}"),
                 ],
               ),
               actions: <Widget>[
@@ -43,15 +41,16 @@ class _HomePageState extends State<HomePage> {
             );
           });
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.check),
       ),
       body: ListView.separated(itemBuilder: (context,index){
         return ListTile(
             tileColor: _selected[index] ? Colors.blue : null,
           leading: Text('Item ${index+1}'),
           onTap: (){
-            _selected[index] = !_selected[index];
-            countItem();
+            setState(() {
+              _selected[index] = !_selected[index];
+            });
           },
         );
       }, separatorBuilder: (BuildContext context, int index){
