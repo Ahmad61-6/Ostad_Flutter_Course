@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "932861188678",
+    "project_id": "ostad-flutter-71eb6",
+    "storage_bucket": "ostad-flutter-71eb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932861188678:android:a08b308feaefd2d2a5c847",
+        "android_client_info": {
+          "package_name": "com.ayman.ostadapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArzDziKy4YKCq-j649FX5rgm2YPMxjdT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
