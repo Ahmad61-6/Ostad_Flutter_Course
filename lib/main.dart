@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ostadapp/firebase_student_app.dart';
 import 'package:ostadapp/second_screen.dart';
 import 'package:ostadapp/third_screen.dart';
 
@@ -9,7 +10,7 @@ import 'counter_state_controller.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const Myapp());
+  runApp(const FirebaseStudentApp());
 }
 
 class GetDependencyBinder extends Bindings {
