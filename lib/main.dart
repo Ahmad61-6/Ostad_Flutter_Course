@@ -13,9 +13,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await FirebaseMessagingService().initialize();
   await FirebaseMessagingService().getFCMToken();
-  await FirebaseMessagingService().onRefresh((token) {
-    // todo - send to api
-  });
+  await FirebaseMessagingService().onRefresh((token) {});
   await FirebaseMessagingService().subscribeToTopic("THE-NEW-BOSTON");
 
   runApp(const FirebaseStudentApp());
